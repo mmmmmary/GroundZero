@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ContactoForm, ObraForm, CustomUserCreationForm
 from .models import Obra
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 def home(request):
@@ -35,6 +36,7 @@ def contacto(request):
 
     return render(request, 'Myapp/contacto.html', data)
 
+@permission_required('Myapp.add_obra')
 def agregar_producto(request):
 
     data = {
@@ -51,6 +53,7 @@ def agregar_producto(request):
 
     return render(request, 'Myapp/obras/agregar.html', data)
 
+@permission_required('Myapp.view_obra')
 def listar_productos(request):
 
     obras = Obra.objects.all()
@@ -62,6 +65,7 @@ def listar_productos(request):
     
     return render(request, 'Myapp/obras/listar.html', data)
 
+@permission_required('Myapp.change_obra')
 def modificar_productos(request, id):
 
     obra = get_object_or_404(Obra, id=id)
@@ -81,6 +85,7 @@ def modificar_productos(request, id):
 
     return render(request, 'Myapp/obras/modificar.html' )
 
+@permission_required('Myapp.delete_obra')
 def eliminar_productos(request, id):
     obra = get_object_or_404(Obra, id=id)
     obra.delete()

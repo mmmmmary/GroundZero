@@ -52,12 +52,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
                         </li>
+                        {% if perms.Myapp.add_producto %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'agregar_producto' %}">agregar producto</a>
                         </li>
+                        {% endif %}
+                        {% if.perms.Myapp.add_obra %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'listar_productos' %}">Listar productos</a>
                         </li>
+                        {% endif %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
