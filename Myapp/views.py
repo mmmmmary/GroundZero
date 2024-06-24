@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ContactoForm, ObraForm
+from .forms import ContactoForm, ObraForm, CustomUserCreationForm
 from .models import Obra
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def home(request):
@@ -67,7 +68,7 @@ def modificar_productos(request, id):
 
     data = {
 
-        'form' :ObraForm(instance=obra)
+        'form' : ObraForm(instance=obra)
     }
 
     if request.method == 'POST':
@@ -79,3 +80,27 @@ def modificar_productos(request, id):
             data["form"] = formulario
 
     return render(request, 'Myapp/obras/modificar.html' )
+
+def eliminar_productos(request, id):
+    obra = get_object_or_404(Obra, id=id)
+    obra.delete()
+    return redirect(to="listar_productos")
+
+def registro(request):
+
+    data ={
+
+        'form' : CustomUserCreationForm
+    }
+    if request.method == 'POST':
+        formulario  = CustomUserCreationForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            user = authenticate(username=formulario.cleaned_data["username"], password = formulario.cleaned_data["password1"])
+            login(request, user)
+            
+            return redirect(to="home")
+
+        else:
+            data['form'] = formulario
+    return render(request, 'registration/registro.html', data)

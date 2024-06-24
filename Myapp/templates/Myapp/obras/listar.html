@@ -28,6 +28,7 @@
                 <td>{{ p.tipo_obra | capfirst}}</td>
                 <td>
                     <a href="{% url 'modificar_productos' p.id %}">Modificar</a>
+                    <a href="{% url 'eliminar_productos' p.id %}">eliminar</a>
                 </td>
             </tr>
 
