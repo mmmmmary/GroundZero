@@ -1,0 +1,26 @@
+{% extends 'Myapp/base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/style_cart.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<div class="cart-container">
+    <div class="cart-content">
+        <h1>Carrito de Compras</h1>
+        {% if cart %}
+            <ul>
+                {% for item in cart.items.all %}
+                    <li>{{ item.product.nombre }} - {{ item.quantity }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>El carrito está vacío.</p>
+        {% endif %}
+        <!-- Agregar un botón de volver para mejorar la navegación -->
+        <button onclick="window.location.href='/'">Volver a la tienda</button>
+    </div>
+</div>
+{% endblock %}

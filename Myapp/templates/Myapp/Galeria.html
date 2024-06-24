@@ -24,6 +24,10 @@
             <p>{{ p.descripcion | capfirst }}</p>
             <p>${{ p.precio }}</p>
         </div>
+        <form action="{% url 'add_to_cart' p.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Agregar al carrito</button>
+        </form>
 
     </div>
     {% endfor %}

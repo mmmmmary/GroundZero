@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ContactoForm, ObraForm, CustomUserCreationForm
 from .models import Obra
+from cart.models import CartItem
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -109,3 +110,7 @@ def registro(request):
         else:
             data['form'] = formulario
     return render(request, 'registration/registro.html', data)
+
+def product_detail(request, product_id):
+    obra = get_object_or_404(Obra, id=product_id)
+    return render(request, 'myapp/product_detail.html', {'obra': obra})
