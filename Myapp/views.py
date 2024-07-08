@@ -84,7 +84,7 @@ def modificar_productos(request, id):
         else:
             data["form"] = formulario
 
-    return render(request, 'Myapp/obras/modificar.html' )
+    return render(request, 'Myapp/obras/modificar.html', data )
 
 @permission_required('Myapp.delete_obra')
 def eliminar_productos(request, id):
